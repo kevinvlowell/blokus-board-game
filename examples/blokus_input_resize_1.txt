@@ -1,0 +1,29 @@
+// resize smaller and larger ,with tiles
+resize 2
+resize 5
+resize 8
+resize 2
+resize 8
+create 3 *** ..* ...
+play 100 5 5
+create 2 ** **
+play 101 6 0
+create 2 .* .*
+play 102 1 6
+create 4
+****
+.*..
+....
+....
+play 103 4 3
+create 4
+****
+*..*
+*..*
+***.
+play 104 0 0
+board
+resize 7
+resize 6
+resize 3
+quit

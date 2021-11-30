@@ -1,0 +1,14 @@
+// resize test with multiple plays of same tile
+resize 5
+create 3 *** ..* ...
+play 100 0 0
+create 2 ** **
+play 101 2 2
+play 101 2 2
+play 101 3 0
+play 101 0 3
+resize 4
+play 101 1 0
+resize 3
+resize 2
+quit

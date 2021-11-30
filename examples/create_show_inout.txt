@@ -1,0 +1,19 @@
+./blokus 
+>create 2 ** ..
+created tile 100
+>create 3 *** *** ***
+created tile 101
+>create 2 *. ..
+created tile 102
+>show 100
+**
+..
+>show 101
+***
+***
+***
+>show 102
+*
+>quit
+Goodbye
+blokus $ 

@@ -1,0 +1,9 @@
+// Create tiles and show them 
+// No duplicates, disconnects, or translations required
+create 2 ** ..
+create 3 *** *** ***
+create 2 *. ..
+show 100
+show 101
+show 102
+quit

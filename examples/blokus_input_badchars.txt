@@ -1,0 +1,11 @@
+create 3
+...
+***
+?..
+create 1 q
+create 2
+**
+*q
+create 1 *
+show tiles
+quit

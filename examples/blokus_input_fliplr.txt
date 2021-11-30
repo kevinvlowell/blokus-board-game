@@ -1,0 +1,21 @@
+create 5
+.***.
+.**..
+*****
+*.**.
+..*..
+fliplr 100
+fliplr 100
+create 3
+.**
+**.
+.*.
+fliplr 101
+fliplr 101
+create 3
+***
+..*
+.**
+fliplr 102
+fliplr 102
+quit

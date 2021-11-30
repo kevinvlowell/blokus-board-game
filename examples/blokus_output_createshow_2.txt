@@ -1,0 +1,27 @@
+created tile 100
+created tile 101
+created tile 102
+created tile 103
+created tile 104
+tile inventory
+104
+...*.
+*****
+.....
+.....
+.....
+100
+**
+.*
+101
+***
+*.*
+***
+102
+*
+103
+*...
+****
+...*
+****
+Goodbye

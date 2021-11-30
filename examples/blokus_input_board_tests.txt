@@ -1,0 +1,9 @@
+// board testing
+board
+resize 5
+create 2 ** **
+play 100 2 0
+board
+play 100 2 2
+board
+quit

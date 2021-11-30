@@ -1,0 +1,32 @@
+created tile 100
+fliplr 100
+.***.
+..**.
+*****
+.**.*
+..*..
+fliplr 100
+.***.
+.**..
+*****
+*.**.
+..*..
+created tile 101
+fliplr 101
+**.
+.**
+.*.
+fliplr 101
+.**
+**.
+.*.
+created tile 102
+fliplr 102
+***
+*..
+**.
+fliplr 102
+***
+..*
+.**
+Goodbye

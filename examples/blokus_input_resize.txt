@@ -1,0 +1,29 @@
+// full resize test
+// resize smaller and larger ,with tiles
+resize 2
+resize 5
+resize 8
+resize 2
+resize 8
+create 3 *** ..* ...
+play 100 5 5
+create 2 ** **
+play 101 6 0
+create 2 .* .*
+play 102 1 6
+create 4
+****
+.*..
+....
+....
+play 103 4 3
+board
+resize 7
+play 101 5 5
+play 101 0 0
+resize 6
+play 101 2 0
+play 101 0 2
+resize 3
+play 101 2 2
+quit

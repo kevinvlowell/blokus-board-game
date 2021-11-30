@@ -1,0 +1,24 @@
+// Tests: pieces with holes
+create 5
+.....
+.***.
+.*.*.
+.***.
+.....
+create 6
+*****.
+*...*.
+*...*.
+*...*.
+**.**.
+.***..
+resize 10
+play 101 1 1
+board
+play 100 2 2
+board
+create 1 *
+play 102 5 3
+play 102 3 3
+board
+quit

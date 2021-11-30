@@ -1,0 +1,11 @@
+created tile 100
+created tile 101
+*.**
+***.
+.***
+**.*
+.***
+**.*
+***.
+*.**
+Goodbye

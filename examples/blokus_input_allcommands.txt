@@ -1,0 +1,38 @@
+// All blokus commands
+// 
+// All commands, but with none of the 
+// hard requirements (duplicates, etc)
+//
+// quit   
+// //
+// board
+// create tbs
+// reset
+// show id
+// show tiles
+// resize nbs
+// play id x y
+// rotate id
+// fliplr id
+// flipud id
+
+resize 8
+create 1 *
+create 2 ** ..
+create 3 *** ... ...
+create 3 **. *.. ...
+show tiles
+show 100
+play 100 7 7 
+play 103 4 6
+board
+play 103 2 2
+board
+reset
+create 3 *** ... ...
+show tiles
+resize 4
+board
+play 100 0 0
+board
+quit

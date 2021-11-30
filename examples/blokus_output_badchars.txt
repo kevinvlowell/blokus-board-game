@@ -1,0 +1,8 @@
+invalid tile
+invalid tile
+invalid tile
+created tile 100
+tile inventory
+100
+*
+Goodbye

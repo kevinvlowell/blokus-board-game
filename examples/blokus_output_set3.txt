@@ -1,0 +1,21 @@
+created tile 100
+***
+**.
+...
+rotated 100
+*..
+**.
+**.
+rotated 100
+.**
+***
+...
+fliplr 100
+**.
+***
+...
+flipud 100
+***
+**.
+...
+Goodbye

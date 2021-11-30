@@ -1,0 +1,7 @@
+create 1 @@
+create 2 ** **
+create 2
+xx
+oo
+show tiles
+quit

@@ -1,0 +1,9 @@
+created tile 100
+disconnected tile discarded
+disconnected tile discarded
+disconnected tile discarded
+created tile 101
+**
+..
+*
+Goodbye

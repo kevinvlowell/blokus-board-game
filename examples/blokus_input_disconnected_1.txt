@@ -1,0 +1,12 @@
+// Disconnected tiles inside tileboxes
+create 2 ** ..
+create 2 .* *.
+create 2 *. .*
+create 3
+**.
+..*
+***
+create 1 *
+show 100
+show 101
+quit

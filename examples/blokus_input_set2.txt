@@ -1,0 +1,23 @@
+//Tests: size, create, show, play, reset, board
+resize 10
+create 3
+***
+**.
+...
+create 2
+**
+**
+create 1
+*
+show tiles
+play 101 2 3
+play 102 4 5
+play 100 0 0
+board
+play 100 4 5
+play 99 1 1
+board
+reset
+board
+resize 2
+quit

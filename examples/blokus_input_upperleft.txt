@@ -1,0 +1,7 @@
+create 3 ... ..* ***
+show 100
+rotate 100
+fliplr 100
+rotate 100
+flipud 100
+quit

@@ -1,0 +1,36 @@
+created tile 100
+created tile 101
+created tile 102
+duplicate of 102 discarded
+duplicate of 102 discarded
+created tile 103
+created tile 104
+duplicate of 104 discarded
+duplicate of 103 discarded
+created tile 105
+rotated 105
+********..
+.......*..
+.......*..
+********..
+.......*..
+.......*..
+***.****..
+*..*...*..
+*..*...*..
+********..
+rotated 105
+**********
+*..*..*..*
+*..*..*..*
+*..*..*..*
+*..*...***
+*..*..*..*
+*..*..*..*
+*..*..****
+..........
+..........
+created tile 106
+duplicate of 105 discarded
+duplicate of 105 discarded
+Goodbye

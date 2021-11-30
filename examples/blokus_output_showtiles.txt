@@ -1,0 +1,108 @@
+created tile 100
+created tile 101
+created tile 102
+created tile 103
+created tile 104
+created tile 105
+created tile 106
+created tile 107
+created tile 108
+created tile 109
+created tile 110
+created tile 111
+created tile 112
+created tile 113
+created tile 114
+created tile 115
+created tile 116
+created tile 117
+created tile 118
+created tile 119
+created tile 120
+tile inventory
+120
+..*
+.**
+**.
+119
+..*
+***
+..*
+118
+..*
+***
+*..
+117
+***
+*..
+*..
+116
+.*.
+***
+*..
+115
+.*.
+***
+.*.
+114
+***
+*.*
+...
+113
+.**
+***
+...
+112
+***.
+..**
+....
+....
+111
+..*.
+****
+....
+....
+110
+****
+...*
+....
+....
+103
+**
+*.
+102
+***
+...
+...
+101
+**
+..
+100
+*
+104
+****
+....
+....
+....
+105
+**
+**
+106
+***
+*..
+...
+107
+.**
+**.
+...
+108
+***
+.*.
+...
+109
+*****
+.....
+.....
+.....
+.....
+Goodbye

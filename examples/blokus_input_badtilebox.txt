@@ -1,0 +1,5 @@
+create 2 aa bb
+create 1 x
+create 1 .
+create 2 .. ..
+quit

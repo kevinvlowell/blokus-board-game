@@ -1,0 +1,13 @@
+// Tests: create, show, and quit
+create 3
+***
+**.
+...
+create 2
+**
+**
+create 1
+*
+show tiles
+show 101
+quit

@@ -1,0 +1,7 @@
+resize 4
+create 3 *** ... ...
+play 100 1 0
+play 100 2 1
+play 100 3 2
+board
+quit

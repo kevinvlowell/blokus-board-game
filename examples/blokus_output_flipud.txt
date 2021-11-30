@@ -1,0 +1,32 @@
+created tile 100
+flipud 100
+..*..
+*.**.
+*****
+.**..
+.***.
+flipud 100
+.***.
+.**..
+*****
+*.**.
+..*..
+created tile 101
+flipud 101
+.*.
+**.
+.**
+flipud 101
+.**
+**.
+.*.
+created tile 102
+flipud 102
+.**
+..*
+***
+flipud 102
+***
+..*
+.**
+Goodbye
