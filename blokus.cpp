@@ -263,7 +263,10 @@ class Blokus {
     tile_collection.push_back(tile_ptr);
 }
 
-  void reset();
+  void reset() {
+      board.clear();
+      cout << "game reset" << endl;
+  }
   void show_tiles() const {
     Tile* tile_ptr;
     vector<string> tile;
