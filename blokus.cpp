@@ -129,11 +129,11 @@ class Tile {
   vector<string> tile_shifter(vector<string> original_tile) {
       int topmost_index, leftmost_index;
       bool piece_found = false;
-      string row, empty_row = "";
+      string row, empty_row;
 
       //create empty row for later use
       for (int i = 0; i < original_tile.size(); i++) {
-          empty_row = empty_row + ".";
+          empty_row.append(".");
       }
       // find topmost *
       for (int i = 0; i < original_tile.size(); i++) {
@@ -186,6 +186,7 @@ class Blokus {
 
  public:
   vector<Tile*> tile_collection;
+  vector<string> board;
   TileID next_id;
   
   // constructor
@@ -281,9 +282,25 @@ class Blokus {
       }
     }
   }
-  void show_board() const;
+  void show_board() const {
+    for (int i = 0; i < board.size(); i++) {
+      cout << board.at(i) << endl;
+    }
+  }
+
   void play_tile(TileID, int, int);
-  void set_size(int);
+
+  void set_size(int board_size) {
+    string empty_row;
+    // create empty row string
+    for (int i = 0; i < board_size; i++) {
+      empty_row.append(".");
+    }
+    // create board
+    for (int i = 0; i < board_size; i++) {
+      board.push_back(empty_row);
+    }
+  }
 };
 
 
