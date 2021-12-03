@@ -111,8 +111,8 @@ class Tile {
   TileID tile_id;
 
   Tile(vector<string> tile_specs, TileID tile_id) {
-      this -> tile_specs = tile_shifter(tile_specs);
-      this -> tile_id = tile_id;
+      this->tile_specs = tile_shifter(tile_specs);
+      this->tile_id = tile_id;
   }
 
   // print out tile in tilebox format
@@ -263,7 +263,24 @@ class Blokus {
 }
 
   void reset();
-  void show_tiles() const;
+  void show_tiles() const {
+    Tile* tile_ptr;
+    vector<string> tile;
+    int tile_size;
+    
+    cout << "tile inventory" << endl;
+
+    for (int i = 0; i < tile_collection.size(); i++) {
+      tile_ptr = tile_collection.at(i);
+      tile = tile_ptr->tile_specs;
+      tile_size = tile.size();
+
+      cout << tile_ptr->tile_id << endl;
+      for (int j = 0; j < tile_size; j++) {
+          cout << tile.at(j) << endl;
+      }
+    }
+  }
   void show_board() const;
   void play_tile(TileID, int, int);
   void set_size(int);
