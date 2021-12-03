@@ -185,19 +185,36 @@ class Blokus {
   // collection of Tiles
 
  public:
-  vector<Tile> tile_collection;
+  vector<Tile*> tile_collection;
   TileID next_id;
   
   // constructor
   Blokus() {
     next_id = 100;
   }
-  Tile* find_tile(TileID);
+  Tile* find_tile(TileID search_id) {
+    
+    // use binary search for efficiency, since list of tiles is ordered
+    int min_index = 0, max_index = tile_collection.size() - 1;
+    int midpoint = (min_index + max_index)/2;
+    Tile* current_tile = tile_collection.at(midpoint);
+
+    while (current_tile->tile_id != search_id) {
+      if (current_tile->tile_id < search_id) {
+        min_index = midpoint + 1;
+      } else {
+        max_index = midpoint - 1;
+      }
+      midpoint = (min_index + max_index)/2;
+      current_tile = tile_collection.at(midpoint);
+    }
+    return current_tile;
+  }
   void create_piece() {
     
     int tile_size;
     vector<string> tile_str_vec;
-    string line, line_above, line_below;
+    string line;
 
     // read in the size
     cin >> tile_size;
@@ -227,13 +244,16 @@ class Blokus {
         // check if a duplicate tile
 
         // check for disconnected *'s
+
+        // check for empty tiles in check characters loop
     }
     // make a Tile
-    Tile tile(tile_str_vec, next_id);
+    Tile* tile_ptr = new Tile(tile_str_vec, next_id);
+    cout << "created tile " << next_id << endl;
     next_id++;
 
     // store it in a collection of Tiles
-    tile_collection.push_back(tile);
+    tile_collection.push_back(tile_ptr);
 }
 
   void reset();
