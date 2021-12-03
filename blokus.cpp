@@ -215,6 +215,7 @@ class Blokus {
     int tile_size;
     vector<string> tile_str_vec;
     string line;
+    bool empty_tile = true;
 
     // read in the size
     cin >> tile_size;
@@ -234,18 +235,23 @@ class Blokus {
             cout << "invalid tile" << endl;
             return;
         }
-        //check characters
+        //check characters and for empty tile
         for (int j = 0; j < line.length(); j++) {
             if (line.at(j) != '*' && line.at(j) != '.') {
                 cout << "invalid tile" << endl;
                 return;
             }
+            if (line.at(j) == '*')
+                empty_tile = false;
         }
+        if (empty_tile) {
+            cout << "invalid tile" << endl;
+            return;
+        }
+
         // check if a duplicate tile
 
         // check for disconnected *'s
-
-        // check for empty tiles in check characters loop
     }
     // make a Tile
     Tile* tile_ptr = new Tile(tile_str_vec, next_id);
