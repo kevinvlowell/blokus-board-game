@@ -102,14 +102,70 @@ RESIZE: make the board bigger or smaller. When smaller,
 */
 
 
+// helper method for shifting tiles to top left corner
+vector<string> tile_shifter(vector<string> original_tile) {
+    int topmost_index, leftmost_index;
+    bool piece_found = false;
+    string row, empty_row = "";
+
+    //create empty row for later use
+    for (int i = 0; i < original_tile.size(); i++) {
+        empty_row = empty_row + ".";
+    }
+    // find topmost *
+    for (int i = 0; i < original_tile.size(); i++) {
+        row = original_tile.at(i);
+
+        for (int j = 0; j < original_tile.size(); j++) {
+            if (row.at(j) == '*') {
+                piece_found = true;
+                topmost_index = i;
+                break;
+            }
+        }
+        if (piece_found) {
+            break;
+        }
+    }
+    piece_found = false;
+    // find leftmost *
+    for (int i = 0; i < original_tile.size(); i++) {
+        for (int j = 0; j < original_tile.size(); j++) {
+            row = original_tile.at(j);
+
+            if (row.at(i) == '*') {
+                piece_found = true;
+                leftmost_index = i;
+                break;
+            }
+        }
+        if (piece_found) {
+            break;
+        }
+    }
+    // shift tile up
+    for (int i = topmost_index; i > 0; i--) {
+        original_tile.erase(original_tile.begin());
+        original_tile.push_back(empty_row);
+    }
+    // shift tile left
+    for (int i = 0; i < original_tile.size(); i++) {
+        (original_tile.at(i)).erase(0,leftmost_index);
+        (original_tile.at(i)).append(leftmost_index, '.');
+    }
+    return original_tile;
+}
+
 typedef int TileID;
 
 class Tile {
 
  public:
   vector<string> tile_specs;
+  vector<string> orig_tile_specs;
   TileID tile_id;
 
+  // constructor
   Tile(vector<string> tile_specs, TileID tile_id) {
       this->tile_specs = tile_shifter(tile_specs);
       this->tile_id = tile_id;
@@ -121,63 +177,10 @@ class Tile {
           cout << tile_specs.at(i) << endl;
       }
   }
+  // NEED TO IMPLEMENT THESE FUNCTIONS
   void rotate();
   void flipud();
   void fliplr();
-
-  // helper method for shifting tile to top left corner
-  vector<string> tile_shifter(vector<string> original_tile) {
-      int topmost_index, leftmost_index;
-      bool piece_found = false;
-      string row, empty_row;
-
-      //create empty row for later use
-      for (int i = 0; i < original_tile.size(); i++) {
-          empty_row.append(".");
-      }
-      // find topmost *
-      for (int i = 0; i < original_tile.size(); i++) {
-          row = original_tile.at(i);
-
-          for (int j = 0; j < original_tile.size(); j++) {
-              if (row.at(j) == '*') {
-                  piece_found = true;
-                  topmost_index = i;
-                  break;
-              }
-          }
-          if (piece_found) {
-              break;
-          }
-      }
-      piece_found = false;
-      // find leftmost *
-      for (int i = 0; i < original_tile.size(); i++) {
-          for (int j = 0; j < original_tile.size(); j++) {
-              row = original_tile.at(j);
-
-              if (row.at(i) == '*') {
-                  piece_found = true;
-                  leftmost_index = i;
-                  break;
-              }
-          }
-          if (piece_found) {
-              break;
-          }
-      }
-      // shift tile up
-      for (int i = topmost_index; i > 0; i--) {
-          original_tile.erase(original_tile.begin());
-          original_tile.push_back(empty_row);
-      }
-      // shift tile left
-      for (int i = 0; i < original_tile.size(); i++) {
-          (original_tile.at(i)).erase(0,leftmost_index);
-          (original_tile.at(i)).append(leftmost_index, '.');
-      }
-      return original_tile;
-  }
 };
 
 
@@ -216,6 +219,7 @@ class Blokus {
     int tile_size;
     vector<string> tile_str_vec;
     string line;
+    Tile* comp_tile;
     bool empty_tile = true;
 
     // read in the size
@@ -251,8 +255,10 @@ class Blokus {
         }
 
         // check if a duplicate tile
+        // NEED TO IMPLEMENT TILE MANIPULATION METHODS FIRST, IN ORDER TO COMPARE INPUT TILE TO ALL ROTATED/FLIPPED VERSIONS OF TILES IN INVENTORY
 
-        // check for disconnected *'s
+        // check for multiple tiles in one tilebox (disconnected *'s)
+        // NEEDS IMPLEMENTATION
     }
     // make a Tile
     Tile* tile_ptr = new Tile(tile_str_vec, next_id);
@@ -262,7 +268,6 @@ class Blokus {
     // store it in a collection of Tiles
     tile_collection.push_back(tile_ptr);
 }
-
   void reset() {
       board.clear();
       cout << "game reset" << endl;
@@ -275,14 +280,14 @@ class Blokus {
     cout << "tile inventory" << endl;
 
     for (int i = 0; i < tile_collection.size(); i++) {
-      tile_ptr = tile_collection.at(i);
-      tile = tile_ptr->tile_specs;
-      tile_size = tile.size();
+    tile_ptr = tile_collection.at(i);
+    tile = tile_ptr->tile_specs;
+    tile_size = tile.size();
 
-      cout << tile_ptr->tile_id << endl;
-      for (int j = 0; j < tile_size; j++) {
-          cout << tile.at(j) << endl;
-      }
+    cout << tile_ptr->tile_id << endl;
+    for (int j = 0; j < tile_size; j++) {
+        cout << tile.at(j) << endl;
+    }
     }
   }
   void show_board() const {
@@ -291,15 +296,17 @@ class Blokus {
     }
   }
 
+    // NEED TO IMPLEMENT
   void play_tile(TileID, int, int);
 
+    // NEED TO IMPLEMENT BEHAVIOR FOR SETTING SIZE OF BOARD AFTER GAMEPLAY HAS STARTED; JUST FOR INITIALIZING EMPTY BOARD RIGHT NOW
   void set_size(int board_size) {
     string empty_row;
     // create empty row string
     for (int i = 0; i < board_size; i++) {
       empty_row.append(".");
     }
-    // create board
+    // create empty board
     for (int i = 0; i < board_size; i++) {
       board.push_back(empty_row);
     }
