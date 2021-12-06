@@ -106,12 +106,8 @@ RESIZE: make the board bigger or smaller. When smaller,
 vector<string> tile_shifter(vector<string> original_tile) {
     int topmost_index, leftmost_index;
     bool piece_found = false;
-    string row, empty_row = "";
-
-    //create empty row for later use
-    for (int i = 0; i < original_tile.size(); i++) {
-        empty_row = empty_row + ".";
-    }
+    string row;
+    
     // find topmost *
     for (int i = 0; i < original_tile.size(); i++) {
         row = original_tile.at(i);
@@ -146,12 +142,10 @@ vector<string> tile_shifter(vector<string> original_tile) {
     // shift tile up
     for (int i = topmost_index; i > 0; i--) {
         original_tile.erase(original_tile.begin());
-        original_tile.push_back(empty_row);
     }
     // shift tile left
     for (int i = 0; i < original_tile.size(); i++) {
         (original_tile.at(i)).erase(0,leftmost_index);
-        (original_tile.at(i)).append(leftmost_index, '.');
     }
     return original_tile;
 }
