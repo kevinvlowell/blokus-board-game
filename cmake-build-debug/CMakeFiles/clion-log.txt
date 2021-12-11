@@ -1,0 +1,4 @@
+/snap/clion/175/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/175/bin/ninja/linux/ninja -G Ninja /home/samir/Documents/Boston_University/Fall_2021/EC602/C++/blokus-board-game
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/samir/Documents/Boston_University/Fall_2021/EC602/C++/blokus-board-game/cmake-build-debug

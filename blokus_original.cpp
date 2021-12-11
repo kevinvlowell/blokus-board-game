@@ -1,4 +1,6 @@
-// Copyright 2021 you
+// Copyright 2021 Muhammad Fahad Farid fahadf@bu.edu
+// Copyright 2021 Samir Farhat Dominguez safarhat@bu.edu
+// Copyright 2021 Kevin Vogt-Lowell kjv@bu.edu
 #include <iostream>
 #include <string>
 // allowed includes
@@ -102,100 +104,97 @@ RESIZE: make the board bigger or smaller. When smaller,
 typedef int TileID;
 
 class Tile {
-  // common interface. required.
- public:
-  void show() const;  // print out tile in tilebox format
-  void rotate();
-  void flipud();
-  void fliplr();
+    // common interface. required.
+  public:
+    void show() const;  // print out tile in tilebox format
+    void rotate();
+    void flipud();
+    void fliplr();
 };
 
 
 class Blokus {
-  // common interface. required.
-  // collection of Tiles
+    // common interface. required.
+    // collection of Tiles
 
- public:
-  Tile* find_tile(TileID);
-  void create_piece() {
-    // read in the size
-    // read in strings
-    // make a Tile
-    // store it in a collection of Tiles
-  }
+  public:
+    Tile* find_tile(TileID);
+    void create_piece() {
+        // read in the size
+        // read in strings
+        // make a Tile
+        // store it in a collection of Tiles
+    }
 
-  void reset();
-  void show_tiles() const;
-  void show_board() const;
-  void play_tile(TileID, int, int);
-  void set_size(int);
+    void reset();
+    void show_tiles() const;
+    void show_board() const;
+    void play_tile(TileID, int, int);
+    void set_size(int);
 };
 
 
-
 // MAIN. Do not change the below.
-
-
 int main() {
-  string command;
-  Blokus b;
+    string command;
+    Blokus b;
 
-  while (true) {
-    cin >> command;
-    if (command == "quit")  {
-      break;
-    } else if (command == "//") {
-      getline(cin, command);
-    } else if (command == "board") {
-      b.show_board();
-    } else if (command == "create") {
-      b.create_piece();
-    } else if (command == "reset") {
-      b.reset();
-    } else if (command == "show") {
-      string arg;
-      cin >> arg;
-      if (arg == "tiles") {
-        b.show_tiles();
-      } else {
-        auto g = b.find_tile(std::stoi(arg));
-        g->show();
-      }
-    } else if (command == "resize") {
-      int newsize;
-      cin >> newsize;
-      b.set_size(newsize);
-      b.show_board();
-    } else if (command == "play") {
-      TileID id;
-      int row, col;
-      cin >> id >> row >> col;
-      b.play_tile(id, row, col);
-    } else if (command == "rotate") {
-      TileID id;
-      cin >> id;
-      auto g = b.find_tile(id);
-      g->rotate();
-      cout << "rotated " << id << "\n";
-      g->show();
-    } else if (command == "fliplr") {
-      TileID id;
-      cin >> id;
-      auto g = b.find_tile(id);
-      g->fliplr();
-      cout << "fliplr " << id << "\n";
-      g->show();
-    } else if (command == "flipud") {
-      TileID id;
-      cin >> id;
-      auto g = b.find_tile(id);
-      g->flipud();
-      cout << "flipud " << id << "\n";
-      g->show();
-    } else {
-      cout << "command not understood.\n";
+    while (true) {
+        cin >> command;
+        if (command == "quit")  {
+            break;
+        } else if (command == "//") {
+            getline(cin, command);
+        } else if (command == "board") {
+            b.show_board();
+        } else if (command == "create") {
+            b.create_piece();
+        } else if (command == "reset") {
+            b.reset();
+        } else if (command == "show") {
+            string arg;
+            cin >> arg;
+            if (arg == "tiles") {
+                b.show_tiles();
+            } else {
+                auto g = b.find_tile(std::stoi(arg));
+                g->show();
+            }
+        } else if (command == "resize") {
+            int newsize;
+            cin >> newsize;
+            b.set_size(newsize);
+            b.show_board();
+        } else if (command == "play") {
+            TileID id;
+            int row, col;
+            cin >> id >> row >> col;
+            b.play_tile(id, row, col);
+        } else if (command == "rotate") {
+            TileID id;
+            cin >> id;
+            auto g = b.find_tile(id);
+            g->rotate();
+            cout << "rotated " << id << "\n";
+            g->show();
+        } else if (command == "fliplr") {
+            TileID id;
+            cin >> id;
+            auto g = b.find_tile(id);
+            g->fliplr();
+            cout << "fliplr " << id << "\n";
+            g->show();
+        } else if (command == "flipud") {
+            TileID id;
+            cin >> id;
+            auto g = b.find_tile(id);
+            g->flipud();
+            cout << "flipud " << id << "\n";
+            g->show();
+        } else {
+            cout << "command not understood.\n";
+        }
     }
-  }
-  cout << "Goodbye\n";
-  return 0;
+    cout << "Goodbye\n";
+    return 0;
 }
