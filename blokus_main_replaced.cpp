@@ -170,7 +170,6 @@ class Tile {
     // constructor
     Tile(vector<string> tile_specs, TileID tile_id) {
         this->tile_specs = tile_shifter(tile_specs);
-        this->orig_tile_specs = tile_shifter(tile_specs);
         this->tile_id = tile_id;
     }
 
@@ -181,57 +180,19 @@ class Tile {
         }
     }
     // NEED TO IMPLEMENT THESE FUNCTIONS
-    void rotate()
-    {
-        vector<string> temp;
-        for (int j = tile_specs.at(0).size()-1; j>=0; j--){
-            string str = "";
-                for (int i = 0; i< tile_specs.size(); i++)
-                {
-                    string t = tile_specs.at(i);
-                    str += (t.at(j));
-                }
-            temp.push_back(str);
-            }
-        this->tile_specs = tile_shifter(temp);
-    };
-    void fliplr()
-    {
-        vector<string> temp;
-        for (int i = 0; i< tile_specs.size(); i++){
-            string str = "";
-            string t = tile_specs.at(i);
-                for (int j = tile_specs.at(0).size()-1; j>=0; j--)
-                {
-                    str += (t.at(j));
-                }
-            temp.push_back(str);
-            }
-        this->tile_specs = tile_shifter(temp);
-    };
-
-    void flipud() {
-        string temp;
-        int tile_size = tile_specs.size();
-        for(int i = tile_size-1, j = 0; j < tile_size/2; i--,j++) {
-            temp = tile_specs.at(j);
-            tile_specs.at(j) = tile_specs.at(i);
-            tile_specs.at(i) = temp;
-        }
-    };
-
+    void rotate();
+    void flipud();
+    void fliplr();
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class Blokus {
     // collection of Tiles
-
   public:
     vector<Tile*> tile_collection;
     vector<string> board;
     TileID next_id;
-    int weight;
 
     // constructor
     Blokus() {
@@ -312,7 +273,6 @@ class Blokus {
 
     void reset() {
         board.clear();
-        next_id = 100;
         cout << "game reset" << endl;
     }
 
@@ -342,124 +302,86 @@ class Blokus {
     }
 
     // NEED TO IMPLEMENT
-    void play_tile(TileID tile_id, int x, int y) {
-        Tile* tile_ptr = find_tile(tile_id);
-        vector<string> tile = tile_ptr->tile_specs;
-
-        for(int i = 0; i < tile.size(); i++) {
-            for(int j = 0; j < tile.at(i).size(); j++) {
-                board.at(i+y).at(j+x) = tile.at(i).at(j);
-            }
-        }
-
-        return;
-    }
+    void play_tile(TileID, int, int);
 
     // NEED TO IMPLEMENT BEHAVIOR FOR SETTING SIZE OF BOARD AFTER GAMEPLAY HAS STARTED; JUST FOR INITIALIZING EMPTY BOARD RIGHT NOW
     void set_size(int board_size) {
-        if (board.size() == 0) {
-            string empty_row;
-            // create empty row string
-            for (int i = 0; i < board_size; i++) {
-                empty_row.append(".");
-            }
-            // create empty board
-            for (int i = 0; i < board_size; i++) {
-                board.push_back(empty_row);
-            }
+        string empty_row;
+        // create empty row string
+        for (int i = 0; i < board_size; i++) {
+            empty_row.append(".");
         }
-        // Make bigger
-        if(board_size > board.size()) {
-            string rows = "";
-            for (int i = 0; i < board.size(); i++) {
-                for (int j = board.size(); j < board_size; j++) {
-                    board.at(i).push_back('.');
-                }
-            }
-            for (int i = 0; i < board_size; i++) {
-                rows.push_back('.');
-            }
-            for(int i = board.size(); i < board_size; i++) {
-                board.push_back(rows);
-            }
-        }
-        // Make smaller
-        if(board_size < board.size()) {
-
+        // create empty board
+        for (int i = 0; i < board_size; i++) {
+            board.push_back(empty_row);
         }
     }
-
-    
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // MAIN. Do not change the below.
-int main() {
-    string command;
-    Blokus b;
 
-    while (true) {
-        cin >> command;
-        if (command == "quit")  {
-            cout << "Goodbye" << "\n";
-            break;
-        } else if (command == "//") {
-            getline(cin, command);
-        } else if (command == "board") {
-            b.show_board();
-        } else if (command == "create") {
-            b.create_piece();
-        } else if (command == "reset") {
-            b.reset();
-        } else if (command == "show") {
-            string arg;
-            cin >> arg;
-            if (arg == "tiles") {
-                b.show_tiles();
-            } else {
-                auto g = b.find_tile(std::stoi(arg));
-                g->show();
-            }
-        } else if (command == "resize") {
-            int newsize;
-            cin >> newsize;
-            b.set_size(newsize);
-            b.show_board();
-        } else if (command == "play") {
-            TileID id;
-            int row, col;
-            cin >> id >> row >> col;
-            b.play_tile(id, row, col);
-            b.show_board();
-        } else if (command == "rotate") {
-            TileID id;
-            cin >> id;
-            auto g = b.find_tile(id);
-            //g->rotate();
-            cout << "rotated " << id << "\n";
-            g->show();
-        } 
-        else if (command == "fliplr") {
-            TileID id;
-            cin >> id;
-            auto g = b.find_tile(id);
-            //g->fliplr();
-            cout << "fliplr " << id << "\n";
-            g->show();
-        } 
-        //else if (command == "flipud") {
-        //     TileID id;
-        //     cin >> id;
-        //     auto g = b.find_tile(id);
-        //     g->flipud();
-        //     cout << "flipud " << id << "\n";
-        //     g->show();
-        // }
-         else {
-            cout << "command not understood.\n";
-        }
+int main() {
+  string command;
+  Blokus b;
+
+  while (true) {
+    cin >> command;
+    if (command == "quit")  {
+      break;
+    } else if (command == "//") {
+      getline(cin, command);
+    } else if (command == "board") {
+      b.show_board();
+    } else if (command == "create") {
+      b.create_piece();
+    } else if (command == "reset") {
+      b.reset();
+    } else if (command == "show") {
+      string arg;
+      cin >> arg;
+      if (arg == "tiles") {
+        b.show_tiles();
+      } else {
+        auto g = b.find_tile(std::stoi(arg));
+        g->show();
+      }
+    } else if (command == "resize") {
+      int newsize;
+      cin >> newsize;
+      b.set_size(newsize);
+      b.show_board();
+    } else if (command == "play") {
+      TileID id;
+      int row, col;
+      cin >> id >> row >> col;
+      b.play_tile(id, row, col);
+    } else if (command == "rotate") {
+      TileID id;
+      cin >> id;
+      auto g = b.find_tile(id);
+      g->rotate();
+      cout << "rotated " << id << "\n";
+      g->show();
+    } else if (command == "fliplr") {
+      TileID id;
+      cin >> id;
+      auto g = b.find_tile(id);
+      g->fliplr();
+      cout << "fliplr " << id << "\n";
+      g->show();
+    } else if (command == "flipud") {
+      TileID id;
+      cin >> id;
+      auto g = b.find_tile(id);
+      g->flipud();
+      cout << "flipud " << id << "\n";
+      g->show();
+    } else {
+      cout << "command not understood.\n";
     }
-    cout << "Goodbye\n";
-    return 0;
+  }
+  cout << "Goodbye\n";
+  return 0;
 }
