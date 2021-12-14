@@ -350,6 +350,7 @@ class Blokus {
             for(int j = 0; j < tile.size(); j++) {
                 if(tile.at(i).at(j) == '*' && (i+x > board.size()-1 || j+y > board.size()-1)) {
                     cout << tile_id << " not played" << '\n';
+                    return;
                 }
             }
         }
