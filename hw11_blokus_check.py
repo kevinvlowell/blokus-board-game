@@ -3,566 +3,31 @@
 Note: the author emails are not validated against the actual student list.
 
 """
-VERSION = (3,0)
-
+VERSION = (2,0)
 from collections import OrderedDict
 
 splitter = '// MAIN. Do not change the below.'
 
 Tests={}
 elementval=OrderedDict([
-('astyle',1.7),
+('astyle',5),
 ('cpplint',5),
-('basic_create_show',10),
-('board',5),
-('reset',5),
-('rotate',5),
+('basic_create_show',20),
+('board',10),
+('rotate',10),
 ('flipud',5),
 ('fliplr',5),
+('reset',5),
 ('play',10),
-('show_tiles',5),
+('show_tiles',10),
 ('resize_bigger',5),
-('upperleft',5)])
+('upperleft',10)])
 
 
-
-
-elementval.update([('duplicate',15),
-('disconnected',10),
-('badtilebox',3.3),
-('resize_smaller',5)])
-
-
-Tests['duplicate']=[("""// Create 21 blokus tiles and some duplicates
-create 1 *
-create 2 ** ..
-create 3 *** ... ...
-create 3 **. *.. ...
-create 4
-****
-....
-....
-....
-create 4
-**..
-**..
-....
-....
-create 4
-***.
-*...
-....
-....
-create 4
-**..
-.**.
-....
-....
-create 4
-***.
-.*..
-....
-....
-create 5
-*****
-.....
-.....
-.....
-.....
-create 5
-****.
-...*.
-.....
-.....
-.....
-create 5
-****.
-..*..
-.....
-.....
-.....
-create 5
-***..
-..**.
-.....
-.....
-.....
-create 5
-***..
-.**..
-.....
-.....
-.....
-create 5
-***..
-*.*..
-.....
-.....
-.....
-create 5
-.....
-..*..
-.***.
-..*..
-.....
-create 5
-..*..
-.***.
-.*...
-.....
-.....
-create 5
-.....
-.*...
-.*...
-.***.
-.....
-create 5
-...*.
-.***.
-.*...
-.....
-.....
-create 5
-...*.
-.***.
-...*.
-.....
-.....
-create 5
-...*.
-..**.
-.**..
-.....
-.....
-create 6
-......
-......
-.**...
-..*...
-..**..
-......
-create 6
-......
-..*...
-..*...
-.***..
-......
-......
-create 6
-......
-..***.
-....**
-......
-......
-......
-create 6
-......
-..**..
-...**.
-....*.
-......
-......
-create 6
-......
-...*..
-...*..
-...*..
-...*..
-...*..
-create 6
-......
-......
-.***..
-.*....
-......
-......
-create 6
-......
-......
-...**.
-...**.
-......
-......
-create 6
-......
-......
-..**..
-***...
-......
-......
-create 6
-......
-******
-......
-......
-......
-......
-quit
-""","""created tile 100
-created tile 101
-created tile 102
-created tile 103
-created tile 104
-created tile 105
-created tile 106
-created tile 107
-created tile 108
-created tile 109
-created tile 110
-created tile 111
-created tile 112
-created tile 113
-created tile 114
-created tile 115
-created tile 116
-created tile 117
-created tile 118
-created tile 119
-created tile 120
-duplicate of 118 discarded
-duplicate of 119 discarded
-duplicate of 112 discarded
-duplicate of 120 discarded
-duplicate of 109 discarded
-duplicate of 106 discarded
-duplicate of 105 discarded
-duplicate of 112 discarded
-created tile 121
-Goodbye
-"""),("""create 4
-**..
-***.
-..**
-...*
-create 4
-.***
-**..
-.***
-.*..
-create 6
-******
-*....*
-*....*
-****.*
-*....*
-******
-create 6
-******
-*....*
-****.*
-*....*
-*....*
-******
-create 6
-******
-*....*
-*.****
-*....*
-*....*
-******
-create 1 *
-create 4
-..**
-..**
-...*
-....
-create 3
-...
-***
-**.
-create 5
-.....
-.....
-.....
-.....
-....*
-create 10
-..........
-****..*..*
-*..*..*..*
-*..*..*..*
-***...*..*
-*..*..*..*
-*..*..*..*
-*..*..*..*
-**********
-..........
-rotate 105
-rotate 105
-create 2 ** **
-create 10
-********..
-.......*..
-.......*..
-********..
-.......*..
-.......*..
-***.****..
-*..*...*..
-*..*...*..
-********..
-create 10
-**********
-*..*..*..*
-*..*..*..*
-*..*..*..*
-*..*...***
-*..*..*..*
-*..*..*..*
-*..*..****
-..........
-..........
-quit
-""","""created tile 100
-created tile 101
-created tile 102
-duplicate of 102 discarded
-duplicate of 102 discarded
-created tile 103
-created tile 104
-duplicate of 104 discarded
-duplicate of 103 discarded
-created tile 105
-rotated 105
-********..
-.......*..
-.......*..
-********..
-.......*..
-.......*..
-***.****..
-*..*...*..
-*..*...*..
-********..
-rotated 105
-**********
-*..*..*..*
-*..*..*..*
-*..*..*..*
-*..*...***
-*..*..*..*
-*..*..*..*
-*..*..****
-..........
-..........
-created tile 106
-duplicate of 105 discarded
-duplicate of 105 discarded
-Goodbye
-"""),("""create 4
-**.*
-.***
-***.
-*.**
-create 4
-.***
-**.*
-***.
-*.**
-show 100
-show 101
-quit
-""","""created tile 100
-created tile 101
-**.*
-.***
-***.
-*.**
-.***
-**.*
-***.
-*.**
-Goodbye
-""")]
-
-Tests['resize_smaller']=[("""// resize smaller and larger ,with tiles
-resize 2
-resize 5
-resize 8
-resize 2
-resize 8
-create 3 *** ..* ...
-play 100 5 5
-create 2 ** **
-play 101 6 0
-create 2 .* .*
-play 102 1 6
-create 4
-****
-.*..
-....
-....
-play 103 4 3
-create 4
-****
-*..*
-*..*
-***.
-play 104 0 0
-board
-resize 7
-resize 6
-resize 3
-quit
-""","""..
-..
-.....
-.....
-.....
-.....
-.....
-........
-........
-........
-........
-........
-........
-........
-........
-..
-..
-........
-........
-........
-........
-........
-........
-........
-........
-created tile 100
-played 100
-created tile 101
-played 101
-created tile 102
-played 102
-created tile 103
-played 103
-created tile 104
-played 104
-****....
-*..*..*.
-*..*..*.
-***.....
-...****.
-....****
-**.....*
-**......
-****...
-*..*..*
-*..*..*
-***....
-...****
-....*..
-.......
-****..
-*..*..
-*..*..
-***...
-......
-......
-...
-...
-...
-Goodbye
-"""),("""// full resize test
-// resize smaller and larger ,with tiles
-resize 2
-resize 5
-resize 8
-resize 2
-resize 8
-create 3 *** ..* ...
-play 100 5 5
-create 2 ** **
-play 101 6 0
-create 2 .* .*
-play 102 1 6
-create 4
-****
-.*..
-....
-....
-play 103 4 3
-board
-resize 7
-play 101 5 5
-play 101 0 0
-resize 6
-play 101 2 0
-play 101 0 2
-resize 3
-play 101 2 2
-quit
-""","""..
-..
-.....
-.....
-.....
-.....
-.....
-........
-........
-........
-........
-........
-........
-........
-........
-..
-..
-........
-........
-........
-........
-........
-........
-........
-........
-created tile 100
-played 100
-created tile 101
-played 101
-created tile 102
-played 102
-created tile 103
-played 103
-........
-......*.
-......*.
-........
-...****.
-....****
-**.....*
-**......
-.......
-......*
-......*
-.......
-...****
-....*..
-.......
-played 101
-played 101
-**....
-**....
-......
-......
-......
-......
-played 101
-played 101
-**.
-**.
-...
-101 not played
-Goodbye
-""")]
 
 scoring_elements=[
 'basic_create_show','rotate','flipud',"fliplr",'board','reset','play',
-'show_tiles','resize_bigger','upperleft',
-'duplicate','disconnected','badtilebox','resize_smaller']
+'show_tiles','resize_bigger','upperleft']
 
 Tests['badtilebox']=[("""create 1 @@
 create 2 ** **
@@ -602,59 +67,6 @@ tile inventory
 Goodbye
 """)]
 
-Tests['disconnected']=[("""create 2 .* *.
-create 2 *. .*
-create 3
-**.
-..*
-***
-create 5
-..*..
-.**..
-..*..
-.*.*.
-.***.
-create 11
-**********.
-.........**
-.*******..*
-.*.....*..*
-**........*
-*..********
-.......*...
-.......*...
-.*******...
-.*......***
-.********..
-quit
-""","""disconnected tile discarded
-disconnected tile discarded
-disconnected tile discarded
-disconnected tile discarded
-disconnected tile discarded
-Goodbye
-"""),("""// Disconnected tiles inside tileboxes
-create 2 ** ..
-create 2 .* *.
-create 2 *. .*
-create 3
-**.
-..*
-***
-create 1 *
-show 100
-show 101
-quit
-""","""created tile 100
-disconnected tile discarded
-disconnected tile discarded
-disconnected tile discarded
-created tile 101
-**
-..
-*
-Goodbye
-""")]
 
 Tests['upperleft']=[("""create 3 ... ..* ***
 show 100
@@ -1293,7 +705,7 @@ except Exception as e:
     print(e)
     quit()
 
-CPPLINT_IGNORE = ['readability/alt_tokens','build/include_subdir',"whitespace/parens"]
+CPPLINT_IGNORE = ['readability/alt_tokens','build/include_subdir']
 
 MAXAUTHORS = 3
 
@@ -1310,8 +722,7 @@ ASTYLE_OPTIONS = [
 
 REQUIRED_INCLUDES = ['algorithm','iomanip','iostream','string','vector']
 
-VALID_INCLUDES = REQUIRED_INCLUDES + ['utility','array','tuple','map','algorithm',
-  "set","unordered_map","unordered_set"]
+VALID_INCLUDES = REQUIRED_INCLUDES + ['utility','array','tuple','map','algorithm',"set","unordered_map","unordered_set"]
 
 
 
@@ -1560,7 +971,6 @@ def blokus_tester(program_to_run):
         correct = 0
         incorrect = 0
         res += 'testing {}\n'.format(scoring_element)
-        print(scoring_element,len(Tests[scoring_element]))
         for instring,answer in Tests[scoring_element]:
             val = ""
             try:
@@ -1595,9 +1005,7 @@ def blokus_tester(program_to_run):
               val += "{:20} {:20} {}\n".format("MY TEXT","YOUR TEXT","DIFFERENT")
               for my,your in zip(my_text,your_text):
                  val +="{:20} {:20} {}\n".format(my,your,"<---" if my != your else "")
-            if scoring_element=="duplicate":
-                print(answer)
-                print(T.stdout)
+    
             if not val:
                 correct += 1
             res += val
@@ -1659,7 +1067,7 @@ def main_cpp(original_source_file,source_file,program_to_run,original_name,save=
       Grade[fcn] = score[fcn]
 
     Grade['cpplint'] = max(0, 5-cpplint_count)
-    Grade['astyle'] = 1.7*code_metrics['astyle']
+    Grade['astyle'] = 5*code_metrics['astyle']
 
     print('---- analysis of your code structure ----\n',file=fh)
 
@@ -1677,24 +1085,6 @@ def main_cpp(original_source_file,source_file,program_to_run,original_name,save=
 
     print('---- grading ----\n',file=fh)
 
-    print('grading scheme\n',file=fh)
-    print(' * 10 points for "create" and "show" (basic)',file=fh)
-    print(' * 5 points for "rotate"',file=fh)
-    print(' * 5 points for "fliplr"',file=fh)
-    print(' * 5 points for "flipud"',file=fh)
-    print(' * 5 points for "board"',file=fh)
-    print(' * 5 points for "reset"',file=fh)
-    print(' * 10 points for "play"',file=fh)
-    print(' * 5 points for "show tiles"',file=fh)
-    print(' * 5 points for "resize" (bigger or same)',file=fh)
-    print(' * 1.7 points for astyle (% file unchanged by astyle)',file=fh)
-    print(' * 5 points for cpplint, -1 deduction for each problem',file=fh)
-    print(' * 5 points for moving tiles to upper left',file=fh)
-    print(' * 15 points for duplicate tile rejection',file=fh)
-    print(' * 10 points for disconnected tile rejection',file=fh)
-    print(' * 5 points for "resize" (smaller)',file=fh)
-    print(' * 3.3 points for bad tile rejection',file=fh)
-    print('\nyour grades:',file=fh)
     for key in elementval:
       try:
         print('  ',key,'[max {}] ='.format(elementval[key]),Grade[key],file=fh)
@@ -1739,14 +1129,13 @@ def special_compile(the_program,new_source_file,executable_name):
 if __name__ == '__main__':
     print('\n'*10)
     print('Blokus Checker Version {0}.{1}'.format(*VERSION))
-    PD = {'source_file':"blokus.cpp",'program_to_run':'blokus_tester','original_name':'blokus.cpp'}
+    PD = {'source_file':"blokus.cpp",'program_to_run':'blokus_alt_tester','original_name':'blokus.cpp'}
 
 
     with open(PD['source_file']) as f:
         the_program = f.read()
-    compmsg, comp_ok = special_compile(the_program,'blokus_main_replaced.cpp',PD['program_to_run'])
+    compmsg, comp_ok = special_compile(the_program,'blokus_alt_main_replaced.cpp',PD['program_to_run'])
     if not comp_ok:
         print(compmsg)
     else:
         main_cpp(PD['source_file'],PD['source_file'],PD['program_to_run'],PD['original_name'])
-
