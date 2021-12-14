@@ -312,6 +312,7 @@ class Blokus {
 
     void reset() {
         board.clear();
+        tile_collection.clear();
         next_id = 100;
         cout << "game reset" << endl;
     }
@@ -345,13 +346,23 @@ class Blokus {
     void play_tile(TileID tile_id, int x, int y) {
         Tile* tile_ptr = find_tile(tile_id);
         vector<string> tile = tile_ptr->tile_specs;
-
         for(int i = 0; i < tile.size(); i++) {
-            for(int j = 0; j < tile.at(i).size(); j++) {
-                board.at(i+y).at(j+x) = tile.at(i).at(j);
+            for(int j = 0; j < tile.size(); j++) {
+                if(tile.at(i).at(j) == '*' && (i+x > board.size()-1 || j+y > board.size()-1)) {
+                    cout << tile_id << " not played" << '\n';
+                }
             }
         }
+        for(int i = 0; i < tile.size(); i++) {
+            for(int j = 0; j < tile.size(); j++) {
+                if(tile.at(i).at(j) == '.') {
+                    continue;
+                }
 
+                board.at(i+x).at(j+y) = tile.at(i).at(j);
+            }
+        }
+        cout << "played " << tile_id << "\n";
         return;
     }
 
@@ -402,7 +413,6 @@ int main() {
     while (true) {
         cin >> command;
         if (command == "quit")  {
-            cout << "Goodbye" << "\n";
             break;
         } else if (command == "//") {
             getline(cin, command);
@@ -431,12 +441,11 @@ int main() {
             int row, col;
             cin >> id >> row >> col;
             b.play_tile(id, row, col);
-            b.show_board();
         } else if (command == "rotate") {
             TileID id;
             cin >> id;
             auto g = b.find_tile(id);
-            //g->rotate();
+            g->rotate();
             cout << "rotated " << id << "\n";
             g->show();
         } 
@@ -444,7 +453,7 @@ int main() {
             TileID id;
             cin >> id;
             auto g = b.find_tile(id);
-            //g->fliplr();
+            g->fliplr();
             cout << "fliplr " << id << "\n";
             g->show();
         } 
