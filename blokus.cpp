@@ -170,6 +170,7 @@ class Tile {
     // constructor
     Tile(vector<string> tile_specs, TileID tile_id) {
         this->tile_specs = tile_shifter(tile_specs);
+        this->orig_tile_specs = tile_shifter(tile_specs);
         this->tile_id = tile_id;
     }
 
@@ -180,9 +181,35 @@ class Tile {
         }
     }
     // NEED TO IMPLEMENT THESE FUNCTIONS
-    void rotate();
+    void rotate()
+    {
+        vector<string> temp;
+        for (int j = tile_specs.at(0).size()-1; j>=0; j--){
+            string str = "";
+                for (int i = 0; i< tile_specs.size(); i++)
+                {
+                    string t = tile_specs.at(i);
+                    str += (t.at(j));
+                }
+            temp.push_back(str);
+            }
+        this->tile_specs = tile_shifter(temp);
+    };
     void flipud();
-    void fliplr();
+    void fliplr()
+    {
+        vector<string> temp;
+        for (int i = 0; i< tile_specs.size(); i++){
+            string str = "";
+            string t = tile_specs.at(i);
+                for (int j = tile_specs.at(0).size()-1; j>=0; j--)
+                {
+                    str += (t.at(j));
+                }
+            temp.push_back(str);
+            }
+        this->tile_specs = tile_shifter(temp);
+    };
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,6 +221,7 @@ class Blokus {
     vector<Tile*> tile_collection;
     vector<string> board;
     TileID next_id;
+    int weight;
 
     // constructor
     Blokus() {
@@ -274,6 +302,7 @@ class Blokus {
 
     void reset() {
         board.clear();
+        next_id = 100;
         cout << "game reset" << endl;
     }
 
@@ -317,6 +346,8 @@ class Blokus {
             board.push_back(empty_row);
         }
     }
+
+    
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -329,6 +360,7 @@ int main() {
     while (true) {
         cin >> command;
         if (command == "quit")  {
+            cout << "Goodbye" << "\n";
             break;
         } else if (command == "//") {
             getline(cin, command);
@@ -352,33 +384,38 @@ int main() {
             cin >> newsize;
             b.set_size(newsize);
             b.show_board();
-        } else if (command == "play") {
-            TileID id;
-            int row, col;
-            cin >> id >> row >> col;
-            b.play_tile(id, row, col);
-        } else if (command == "rotate") {
+        } 
+        // else if (command == "play") {
+        //     TileID id;
+        //     int row, col;
+        //     cin >> id >> row >> col;
+        //     b.play_tile(id, row, col);
+        // } 
+        else if (command == "rotate") {
             TileID id;
             cin >> id;
             auto g = b.find_tile(id);
             g->rotate();
             cout << "rotated " << id << "\n";
             g->show();
-        } else if (command == "fliplr") {
+        } 
+        else if (command == "fliplr") {
             TileID id;
             cin >> id;
             auto g = b.find_tile(id);
             g->fliplr();
             cout << "fliplr " << id << "\n";
             g->show();
-        } else if (command == "flipud") {
-            TileID id;
-            cin >> id;
-            auto g = b.find_tile(id);
-            g->flipud();
-            cout << "flipud " << id << "\n";
-            g->show();
-        } else {
+        } 
+        //else if (command == "flipud") {
+        //     TileID id;
+        //     cin >> id;
+        //     auto g = b.find_tile(id);
+        //     g->flipud();
+        //     cout << "flipud " << id << "\n";
+        //     g->show();
+        // }
+         else {
             cout << "command not understood.\n";
         }
     }
