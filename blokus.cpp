@@ -448,14 +448,14 @@ int main() {
             cout << "fliplr " << id << "\n";
             g->show();
         } 
-        //else if (command == "flipud") {
-        //     TileID id;
-        //     cin >> id;
-        //     auto g = b.find_tile(id);
-        //     g->flipud();
-        //     cout << "flipud " << id << "\n";
-        //     g->show();
-        // }
+        else if (command == "flipud") {
+             TileID id;
+             cin >> id;
+             auto g = b.find_tile(id);
+             g->flipud();
+             cout << "flipud " << id << "\n";
+             g->show();
+         }
          else {
             cout << "command not understood.\n";
         }
