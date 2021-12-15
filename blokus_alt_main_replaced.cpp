@@ -144,25 +144,33 @@ vector<string> tile_shifter(vector<string> original_tile) {
             break;
         }
     }
+    int ssize = original_tile.at(0).size();
     // shift tile up
     for (int i = topmost_index; i > 0; i--) {
         original_tile.erase(original_tile.begin());
+    }
+    string str = "";
+    for (int j=0; j < ssize; j++)
+        str = str +  ".";
+    for (int i=0; i < (ssize - original_tile.size()); i++) {
+        original_tile.push_back(str);
     }
     // shift tile left
     for (int i = 0; i < original_tile.size(); i++) {
         (original_tile.at(i)).erase(0, leftmost_index);
     }
+    for (int i=0; i < ssize; i++) {
+        string strr = original_tile.at(i);
+        for (int j=0; j < (ssize - strr.length() ); j++)
+            strr += ".";
+        original_tile.at(i) = strr;
+    }
     return original_tile;
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 typedef int TileID;
 
 class Tile {
-
-  public:
+ public:
     vector<string> tile_specs;
     vector<string> orig_tile_specs;
     TileID tile_id;
@@ -181,64 +189,57 @@ class Tile {
         }
     }
     // NEED TO IMPLEMENT THESE FUNCTIONS
-    void rotate()
-    {
+    void rotate() {
         vector<string> temp;
-        for (int j = tile_specs.at(0).size()-1; j>=0; j--){
+        for (int j = tile_specs.at(0).size()-1; j >= 0; j--) {
             string str = "";
-                for (int i = 0; i< tile_specs.size(); i++)
-                {
-                    string t = tile_specs.at(i);
-                    str += (t.at(j));
-                }
-            temp.push_back(str);
+            for (int i = 0; i< tile_specs.size(); i++) {
+                string t = tile_specs.at(i);
+                str += (t.at(j));
             }
+            temp.push_back(str);
+        }
         this->tile_specs = tile_shifter(temp);
-    };
-    void fliplr()
-    {
+    }
+    void fliplr() {
         vector<string> temp;
-        for (int i = 0; i< tile_specs.size(); i++){
+        for (int i = 0; i< tile_specs.size(); i++) {
             string str = "";
             string t = tile_specs.at(i);
-                for (int j = tile_specs.at(0).size()-1; j>=0; j--)
-                {
-                    str += (t.at(j));
-                }
+            for (int j = tile_specs.at(0).size()-1; j >= 0; j--)
+                str += (t.at(j));
             temp.push_back(str);
-            }
+        }
         this->tile_specs = tile_shifter(temp);
-    };
-
+    }
     void flipud() {
         string temp;
         int tile_size = tile_specs.size();
-        for(int i = tile_size-1, j = 0; j < tile_size/2; i--,j++) {
+        for (int i = tile_size-1, j = 0; j < tile_size/2; i--, j++) {
             temp = tile_specs.at(j);
+            int flag = 0;
+            for (int k=0; k< tile_specs.at(i).size(); k++)
+                if (tile_specs.at(i).at(k) == '*')
+                    flag = 1;
+            if (flag == 0)
+                i--;
             tile_specs.at(j) = tile_specs.at(i);
             tile_specs.at(i) = temp;
         }
-    };
-
+    }
 };
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-
 class Blokus {
     // collection of Tiles
-
-  public:
+ public:
     vector<Tile*> tile_collection;
-    vector<string> board;
+    vector<string> board = {};
     TileID next_id;
     int weight;
-
     // constructor
     Blokus() {
         next_id = 100;
     }
     Tile* find_tile(TileID search_id) {
-
         // use binary search for efficiency, since list of tiles is ordered
         int min_index = 0, max_index = tile_collection.size() - 1;
         int midpoint = (min_index + max_index) / 2;
@@ -256,7 +257,6 @@ class Blokus {
         return current_tile;
     }
     void create_piece() {
-
         int tile_size;
         vector<string> tile_str_vec;
         string line;
@@ -274,6 +274,20 @@ class Blokus {
             }
         }
         // check tile rules
+
+        string str = "";
+        for (int i=0; i < tile_str_vec.size(); i++) {
+            str += tile_str_vec.at(i);
+        }
+        for (int i=0; i < str.size(); i++) {
+            if (str.at(i) == '*')
+                empty_tile = false;
+        }
+        if (empty_tile) {
+            cout << "invalid tile" << endl;
+            return;
+        }
+
         for (int i = 0; i < tile_str_vec.size(); i++) {
             line = tile_str_vec.at(i);
             // check if square
@@ -281,25 +295,13 @@ class Blokus {
                 cout << "invalid tile" << endl;
                 return;
             }
-            //check characters and for empty tile
+            // check characters and for empty tile
             for (int j = 0; j < line.length(); j++) {
                 if (line.at(j) != '*' && line.at(j) != '.') {
                     cout << "invalid tile" << endl;
                     return;
                 }
-                if (line.at(j) == '*')
-                    empty_tile = false;
             }
-            if (empty_tile) {
-                cout << "invalid tile" << endl;
-                return;
-            }
-
-            // check if a duplicate tile
-            // NEED TO IMPLEMENT TILE MANIPULATION METHODS FIRST, IN ORDER TO COMPARE INPUT TILE TO ALL ROTATED/FLIPPED VERSIONS OF TILES IN INVENTORY
-
-            // check for multiple tiles in one tilebox (disconnected *'s)
-            // NEEDS IMPLEMENTATION
         }
         // make a Tile
         Tile* tile_ptr = new Tile(tile_str_vec, next_id);
@@ -346,28 +348,25 @@ class Blokus {
     void play_tile(TileID tile_id, int x, int y) {
         Tile* tile_ptr = find_tile(tile_id);
         vector<string> tile = tile_ptr->tile_specs;
-        for(int i = 0; i < tile.size(); i++) {
-            for(int j = 0; j < tile.size(); j++) {
-                if(tile.at(i).at(j) == '*' && (i+x > board.size()-1 || j+y > board.size()-1)) {
+        for (int i = 0; i < tile.size(); i++) {
+            for (int j = 0; j < tile.size(); j++) {
+                bool cond = (i+x > board.size()-1 || j+y > board.size()-1);
+                if (tile.at(i).at(j) == '*' && cond) {
                     cout << tile_id << " not played" << '\n';
                     return;
                 }
             }
         }
-        for(int i = 0; i < tile.size(); i++) {
-            for(int j = 0; j < tile.size(); j++) {
-                if(tile.at(i).at(j) == '.') {
+        for (int i = 0; i < tile.size(); i++) {
+            for (int j = 0; j < tile.size(); j++) {
+                if (tile.at(i).at(j) == '.')
                     continue;
-                }
-
                 board.at(i+x).at(j+y) = tile.at(i).at(j);
             }
         }
         cout << "played " << tile_id << "\n";
         return;
     }
-
-    // NEED TO IMPLEMENT BEHAVIOR FOR SETTING SIZE OF BOARD AFTER GAMEPLAY HAS STARTED; JUST FOR INITIALIZING EMPTY BOARD RIGHT NOW
     void set_size(int board_size) {
         if (board.size() == 0) {
             string empty_row;
@@ -381,7 +380,7 @@ class Blokus {
             }
         }
         // Make bigger
-        if(board_size > board.size()) {
+        if (board_size > board.size()) {
             string rows = "";
             for (int i = 0; i < board.size(); i++) {
                 for (int j = board.size(); j < board_size; j++) {
@@ -391,21 +390,12 @@ class Blokus {
             for (int i = 0; i < board_size; i++) {
                 rows.push_back('.');
             }
-            for(int i = board.size(); i < board_size; i++) {
+            for (int i = board.size(); i < board_size; i++) {
                 board.push_back(rows);
             }
         }
-        // Make smaller
-        if(board_size < board.size()) {
-
-        }
     }
-
-    
 };
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-
 // MAIN. Do not change the below.
 
 int main() {
