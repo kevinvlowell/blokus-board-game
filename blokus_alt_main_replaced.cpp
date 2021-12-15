@@ -4,108 +4,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
-// allowed includes
-// tuple, utility, vector, map, set, unordered_map,
-// unordered_set, algorithm
-
 using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
 using std::vector;
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/* Blokus command glossary
-
-Notes:
- - the first tile is numbered 100, and each new
-   one is assigned the next available integer
-
- - the upper left corner is 0,0
-
- - first index is row, second index is column
-
-
-COMMANDS
-
-QUIT: exit the game
->quit
-Goodbye
-
-RESET: start the game from beginning
->reset
-game reset
-
-CREATE: create a new tile
-
->create 4
->..*.
->.**.
->.*..
->....
-created tile 100
-
-
-SHOW ALL TILES: show a tile inventory (unordered.)
-
->show tiles
-tile inventory
-102
-*
-101
-**
-**
-100
-***
-**.
-...
-
-
-SHOW A TILE: show a tile by ID number
->show 100
-***
-**.
-**.
-
-PLAY A TILE: place a tile on the board at row and column numbers
-
->play 101 4 5
-played 101
-
->play 99 0 0
-99 not played
-
-ROTATE A TILE: rotate a tile 90 degrees counterclockwise
->rotate 100
-rotate 100 complete
-**.
-*..
-*..
-
-FLIP A TILE sideways (left becomes right)
->fliplr 100
-fliplr 100 complete
-**.
-.*.
-.*.
-
-FLIP A TILE vertically (up becomes down)
->flipud 100
-flipud 100 complete
-.*.
-.*.
-**.
-
-RESIZE: make the board bigger or smaller. When smaller,
-        played pieces fall off the board. Show the new board.
-
->resize 5
-
-- end of command glossary -
-*/
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // helper method for shifting tiles to top left corner
 vector<string> tile_shifter(vector<string> original_tile) {
@@ -188,7 +91,7 @@ class Tile {
       cout << tile_specs.at(i) << endl;
     }
   }
-  // NEED TO IMPLEMENT THESE FUNCTIONS
+
   void rotate() {
     vector<string> temp;
     for (int j = tile_specs.at(0).size() - 1; j >= 0; j--) {
@@ -303,6 +206,47 @@ class Blokus {
         }
       }
     }
+    // check disconnections
+    for (int i = 0; i < tile_str_vec.size(); i++) {
+      if (tile_str_vec.size() == 1) break;
+      for (int j = 0; j < tile_str_vec.size(); j++) {
+        if (tile_str_vec.at(i).at(j) == '*') {
+          char check_up;
+          char check_left;
+          char check_right;
+          char check_down;
+
+          if (i == 0) {
+            check_up = '.';
+          } else {
+            check_up = tile_str_vec.at(i - 1).at(j);
+          }
+          if (j == 0) {
+            check_left = '.';
+          } else {
+            check_left = tile_str_vec.at(i).at(j - 1);
+          }
+          if (i == tile_str_vec.size() - 1) {
+            check_down = '.';
+          } else {
+            check_down = tile_str_vec.at(i + 1).at(j);
+          }
+          if (j == tile_str_vec.size() - 1) {
+            check_right = '.';
+          } else {
+            check_right = tile_str_vec.at(i).at(j + 1);
+          }
+          if (!(check_up == '*' || check_left == '*' ||
+                check_right == '*' || check_down == '*')) {
+            cout << "disconnected tile discarded" << endl;
+            return;
+          } else {
+            continue;
+          }
+        }
+      }
+    }
+
     // make a Tile
     Tile* tile_ptr = new Tile(tile_str_vec, next_id);
     cout << "created tile " << next_id << endl;
@@ -311,7 +255,6 @@ class Blokus {
     // store it in a collection of Tiles
     tile_collection.push_back(tile_ptr);
   }
-
   void reset() {
     board.clear();
     tile_collection.clear();
@@ -344,7 +287,6 @@ class Blokus {
     }
   }
 
-  // NEED TO IMPLEMENT
   void play_tile(TileID tile_id, int x, int y) {
     Tile* tile_ptr = find_tile(tile_id);
     vector<string> tile = tile_ptr->tile_specs;
